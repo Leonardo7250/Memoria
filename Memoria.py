@@ -36,10 +36,12 @@ def tap(x, y):
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
+        state2['score'] += 1
     else:
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        
 
 
 def draw():
@@ -67,7 +69,7 @@ def draw():
         goto(x+25, y)
         color('black')
         write(tiles[mark], align="center", font=('Arial', 30, 'normal'))
-        state2['score'] += 1
+        
         
 
     update()
