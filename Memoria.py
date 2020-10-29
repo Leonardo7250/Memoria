@@ -5,7 +5,9 @@ from freegames import path
 car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
+state2 = {'score': 0}
 hide = [True] * 64
+writer = Turtle(visible=False)
 
 def square(x, y):
     "Draw white square with black outline at (x, y)."
@@ -39,12 +41,18 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
 
+
 def draw():
     "Draw image and tiles."
+    writer.undo()
+    writer.write(state2['score'])
+
     clear()
     goto(0, 0)
     shape(car)
     stamp()
+
+
 
     for count in range(64):
         if hide[count]:
@@ -59,9 +67,14 @@ def draw():
         goto(x+25, y)
         color('black')
         write(tiles[mark], align="center", font=('Arial', 30, 'normal'))
+        state2['score'] += 1
+        
 
     update()
     ontimer(draw, 100)
+
+
+
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
@@ -69,5 +82,8 @@ addshape(car)
 hideturtle()
 tracer(False)
 onscreenclick(tap)
+writer.goto(300, 300)
+writer.color('black')
+writer.write(state2['score'])
 draw()
 done()
