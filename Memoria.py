@@ -6,6 +6,10 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 state2 = {'score': 0}
+
+state3 = {'victoria': 0}
+
+
 hide = [True] * 64
 writer = Turtle(visible=False)
 
@@ -41,13 +45,22 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-        
+
+        state3['victoria'] += 1
+        if state3['victoria']==31:
+            up()
+            goto(0, 0)
+            color('Azul')
+            write('Ganaste', align="center", font=('Arial', 500, 'normal'))
+
+
 
 
 def draw():
     "Draw image and tiles."
     writer.undo()
     writer.write(state2['score'])
+
 
     clear()
     goto(0, 0)
